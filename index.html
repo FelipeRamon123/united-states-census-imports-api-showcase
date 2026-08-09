@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>U.S. Imports Explorer</title>
+  <meta name="description" content="A showcase for exploring U.S. import data and learning how to use Census trade variables.">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="assets/site-config.js"></script>
+</head>
+<body>
+  <div class="ambient-grid"></div>
+  <nav class="top-nav">
+    <button id="langToggle" class="outline-btn">PT-BR</button>
+  </nav>
+
+  <header class="site-header">
+    <div class="eyebrow" data-i18n="eyebrow">OPEN TRADE INTELLIGENCE · SHOWCASE</div>
+    <h1>U.S. Imports Explorer</h1>
+    <p class="subtitle" data-i18n="subtitle">A simple way to explore U.S. import data and understand what each number is actually useful for.</p>
+    <div class="hero-stats">
+      <span><strong>690,424</strong> <span data-i18n="records">records</span></span>
+      <span><strong>2024 + 2025</strong></span>
+      <span><strong>HTSUS10</strong></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="github-strip">
+      <div>
+        <span class="section-tag" data-i18n="githubTag">GO BEYOND THE DASHBOARD</span>
+        <h2 data-i18n="githubTitle">Reproduce this query and explore other ways to use the API.</h2>
+        <p data-i18n="githubText">The Official Data API Toolkit includes Power Query and Python examples for U.S. Census imports, exports, countries, ports, classifications and customs treatment.</p>
+      </div>
+      <div class="cta-grid">
+        <a id="repoLink" class="cta primary disabled"><span class="cta-icon">&lt;/&gt;</span><span><strong data-i18n="openRepo">Explore the toolkit</strong><small data-i18n="allExamples">All examples</small></span></a>
+        <a id="powerQueryLink" class="cta disabled"><span class="cta-icon">M</span><span><strong>Power Query</strong><small data-i18n="showcaseCode">Code used by this showcase</small></span></a>
+        <a id="pythonLink" class="cta disabled"><span class="cta-icon">Py</span><span><strong>Python</strong><small data-i18n="showcaseCode">Code used by this showcase</small></span></a>
+        <a id="datasetLink" class="cta disabled"><span class="cta-icon">↓</span><span><strong data-i18n="dataset">2024–2025 dataset</strong><small data-i18n="release">GitHub Release</small></span></a>
+      </div>
+    </section>
+
+    <section class="learning-section">
+      <div class="section-heading">
+        <span class="section-tag" data-i18n="beforeTag">BEFORE YOU START</span>
+        <h2 data-i18n="codesTitle">HTSUS in the U.S., NCM in Brazil. The first 6 digits are the common base.</h2>
+        <p data-i18n="codesIntro">The common language is the Harmonized System. After digit 6, each market can open the code in a different way.</p>
+      </div>
+      <div class="classification-grid">
+        <article class="classification-card">
+          <div class="country-pill">🇺🇸 <span data-i18n="usa">United States</span></div><h3>HTSUS</h3>
+          <div class="code-showcase"><span class="seg hs2">87</span><span class="seg hs4">08</span><span class="seg hs6">30</span><span class="seg local8">50</span><span class="seg local10">90</span></div>
+          <p><strong data-i18n="example">Ex:</strong> <span data-i18n="htsExample">8708.30 is already an HS6 code. The last 4 digits add U.S.-specific detail.</span></p>
+        </article>
+        <article class="classification-card">
+          <div class="country-pill">🇧🇷 <span data-i18n="brazil">Brazil</span></div><h3>NCM</h3>
+          <div class="code-showcase"><span class="seg hs2">87</span><span class="seg hs4">08</span><span class="seg hs6">30</span><span class="seg mercosur">90</span></div>
+          <p><strong data-i18n="example">Ex:</strong> <span data-i18n="ncmExample">Brazil keeps the same HS6 base and adds 2 Mercosur digits.</span></p>
+        </article>
+        <aside class="practical-tip">
+          <span class="section-tag" data-i18n="tip">PRACTICAL TIP</span><h3 data-i18n="compareTitle">Comparing countries? Start at HS6.</h3>
+          <p><strong data-i18n="example">Ex:</strong> <span data-i18n="compareExample">To compare a U.S. HTSUS10 with a Brazilian NCM8, first go back to the common 6-digit code. After that, use a concordance if you need more detail.</span></p>
+        </aside>
+      </div>
+      <p class="translation-note" data-i18n="translationDisclaimer">
+        Language note: Portuguese HS2, HS4 and HS6 labels follow official Brazilian nomenclature. HTS8 and HTSUS10 are U.S.-specific; whenever a Portuguese adaptation is used at those levels, it is an AI-assisted free translation for readability, not official nomenclature. The USITC English text remains the reference.
+      </p>
+    </section>
+
+    <section class="learning-section">
+      <div class="section-heading">
+        <span class="section-tag" data-i18n="numbersTag">WHAT DO THESE NUMBERS MEAN?</span>
+        <h2 data-i18n="numbersTitle">Four measures. Four different uses.</h2>
+        <p data-i18n="numbersIntro">The important part is knowing which one fits the question you are trying to answer.</p>
+      </div>
+      <div class="concept-grid">
+        <article class="concept-card"><span class="concept-number">01</span><h3 data-i18n="generalImports">General imports</h3><p class="plain" data-i18n="generalPlain">Everything that physically arrived in the U.S.</p><div class="example-box"><strong data-i18n="example">Ex:</strong> <span data-i18n="generalExample">A shipment arrives and goes to a bonded warehouse. It already counts here.</span></div><div class="use-box"><strong data-i18n="useFor">Use for:</strong> <span data-i18n="generalUse">the broadest view of import flows entering the country.</span></div></article>
+        <article class="concept-card"><span class="concept-number">02</span><h3 data-i18n="consumptionImports">Imports for consumption</h3><p class="plain" data-i18n="consumptionPlain">What was cleared to enter U.S. consumption channels.</p><div class="example-box"><strong data-i18n="example">Ex:</strong> <span data-i18n="consumptionExample">That same shipment leaves the bonded warehouse two months later. It counts here at that moment.</span></div><div class="use-box"><strong data-i18n="useFor">Use for:</strong> <span data-i18n="consumptionUse">questions closer to market entry, customs and tariffs.</span></div></article>
+        <article class="concept-card"><span class="concept-number">03</span><h3 data-i18n="dutiableValue">Dutiable value</h3><p class="plain" data-i18n="dutiablePlain">The part of consumption imports that was subject to duty.</p><div class="example-box"><strong data-i18n="example">Ex:</strong> <span data-i18n="dutiableExample">US$100m entered for consumption and US$40m was dutiable. Then 40% of the flow was exposed to duty.</span></div><div class="use-box"><strong data-i18n="useFor">Use for:</strong> <span data-i18n="dutiableUse">seeing how much of the imported value was actually dutiable.</span></div></article>
+        <article class="concept-card"><span class="concept-number">04</span><h3 data-i18n="calculatedDuties">Calculated duties</h3><p class="plain" data-i18n="dutiesPlain">The Census estimate of duties calculated on the imports.</p><div class="example-box"><strong data-i18n="example">Ex:</strong> <span data-i18n="dutiesExample">US$2m in calculated duties over US$40m dutiable value gives an observed effective rate of 5%.</span></div><div class="use-box caution"><strong data-i18n="careful">Careful:</strong> <span data-i18n="dutiesCareful">this is not the legal tariff rate and may not equal what was actually paid.</span></div></article>
+      </div>
+      <div class="source-line"><span data-i18n="sources">Official references:</span><a href="https://www.census.gov/foreign-trade/reference/definitions/" target="_blank">U.S. Census</a><a href="https://www.usitc.gov/harmonized_tariff_information" target="_blank">USITC HTS</a><a href="https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/classificacao-fiscal-de-mercadorias/ncm" target="_blank">NCM</a></div>
+    </section>
+
+    <section class="explorer-heading"><span class="section-tag" data-i18n="exploreTag">EXPLORE THE DATA</span><h2 data-i18n="exploreTitle">Choose a product, a supplier or just browse the rankings.</h2></section>
+
+    <section class="control-panel">
+      <div class="filter-grid">
+        <label><span data-i18n="year">Year</span><select id="yearSelect"></select></label>
+        <label><span data-i18n="product">HS2, HS4, HS6, HTSUS10 or product</span><div class="search-wrap"><input id="productSearch" type="text" autocomplete="off" placeholder="87, 8708, 870830, 8708305090 or brakes" data-i18n-placeholder="productPlaceholder"><div id="suggestions" class="suggestions hidden"></div></div></label>
+        <label><span data-i18n="country">Supplier country</span><select id="countrySelect"></select></label>
+        <label><span data-i18n="metric">Ranking metric</span><select id="metricSelect"><option value="general">General imports</option><option value="consumption">Imports for consumption</option><option value="dutiable">Dutiable value</option><option value="duties">Calculated duties</option></select></label>
+      </div>
+      <div class="filter-footer"><div id="activeContext" class="active-context"></div><button id="resetBtn" class="primary-btn" data-i18n="reset">Reset filters</button></div>
+    </section>
+
+    <section id="productPathCard" class="product-path-card hidden"><span class="section-tag" data-i18n="pathTag">FROM HS2 TO HTSUS10</span><h3 id="selectedProductTitle"></h3><div id="classificationPath" class="classification-path"></div></section>
+
+    <section class="kpi-grid">
+      <article class="kpi-card"><span data-i18n="generalImports">General imports</span><strong id="kpiGeneral">$0</strong><small id="changeGeneral" class="kpi-change"></small></article>
+      <article class="kpi-card"><span data-i18n="consumptionImports">Imports for consumption</span><strong id="kpiConsumption">$0</strong><small id="changeConsumption" class="kpi-change"></small></article>
+      <article class="kpi-card"><span data-i18n="dutiableValue">Dutiable value</span><strong id="kpiDutiable">$0</strong><small id="changeDutiable" class="kpi-change"></small></article>
+      <article class="kpi-card"><span data-i18n="calculatedDuties">Calculated duties</span><strong id="kpiDuties">$0</strong><small id="changeDuties" class="kpi-change"></small></article>
+    </section>
+
+    <section class="change-strip"><div class="change-intro"><span class="section-tag" data-i18n="changeTag">WHAT CHANGED?</span><h3 id="changeTitle"></h3></div><div class="change-grid"><div><strong id="changeImports">-</strong><span data-i18n="generalChange">General imports</span></div><div><strong id="dutiableShare">-</strong><span data-i18n="dutiableShare">Dutiable share of consumption</span></div><div><strong id="effectiveRate">-</strong><span data-i18n="effectiveRate">Calculated duties / dutiable value</span></div></div></section>
+
+    <section class="charts-grid">
+      <article class="panel"><div class="panel-title"><div><span class="panel-kicker" data-i18n="suppliers">SUPPLIERS</span><h2 id="countriesTitle"></h2></div></div><div id="countriesChart" class="chart"></div></article>
+      <article class="panel"><div class="panel-title product-title"><div><span id="productPanelKicker" class="panel-kicker" data-i18n="productsLabel">PRODUCTS</span><h2 id="productChartTitle"></h2></div><label id="levelControl" class="inline-control"><span data-i18n="chartLevel">Chart level</span><select id="productLevelSelect"><option value="10">HTSUS10</option><option value="6">HS6</option><option value="4">HS4</option><option value="2">HS2</option></select></label></div><div id="productChart" class="chart"></div></article>
+    </section>
+
+    <section class="panel table-panel">
+  <div class="panel-title table-title-row">
+    <div><span class="panel-kicker" data-i18n="compare">COMPARE</span><h2 id="tableTitle"></h2></div>
+    <div class="table-controls">
+      <div id="selectionNote" class="selection-note"></div>
+      <label class="inline-control"><span data-i18n="tableLevel">Table level</span>
+        <select id="tableLevelSelect">
+          <option value="10">HTSUS10</option>
+          <option value="6">HS6</option>
+          <option value="4">HS4</option>
+          <option value="2">HS2</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
+</section>
+
+    <section class="method-note"><div class="method-number">i</div><div><h3 data-i18n="methodTitle">What this showcase does not replace</h3><p data-i18n="methodText">Use it to explore the data and learn the concepts. For a legal tariff, trade remedy or exact classification decision, go back to the official source.</p></div></section>
+  </main>
+
+  <footer><div class="signature"><span class="linkedin-mark">in</span><span class="separator"></span><span>feliperamondbr</span></div><div class="footer-links"><div data-i18n="footerSource">Trade data: U.S. Census Bureau. HTS labels: USITC annual references.</div><a id="dashboardRepoLink" class="footer-repo hidden" target="_blank" data-i18n="dashboardSource">View dashboard source</a></div></footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>

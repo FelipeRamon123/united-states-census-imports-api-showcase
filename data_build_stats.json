@@ -1,0 +1,20 @@
+{
+  "2024": {
+    "rows": 338487,
+    "countries": 232,
+    "products": 18697,
+    "general": 3263893254128,
+    "consumption": 3248681266535,
+    "dutiable": 1010044716112,
+    "duties": 76631002517
+  },
+  "2025": {
+    "rows": 351937,
+    "countries": 231,
+    "products": 18850,
+    "general": 3414510592814,
+    "consumption": 3391221021554,
+    "dutiable": 1326252240452,
+    "duties": 259366570786
+  }
+}

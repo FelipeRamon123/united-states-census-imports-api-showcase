@@ -1,0 +1,12 @@
+# Local downloads
+downloads/*.csv.gz
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
